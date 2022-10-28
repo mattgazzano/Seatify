@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS r_fact_spotify_artist_genres (
+artist_id VARCHAR
+, genre VARCHAR
+, cycle_date TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+)

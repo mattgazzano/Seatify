@@ -1,0 +1,12 @@
+
+version: 2
+
+models:
+  - name: dimension_seatgeek_events
+    description: "A unique list of Seatgeek events and all related dimensional fields"
+    columns:
+      - name: event_id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null

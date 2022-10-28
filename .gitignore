@@ -1,0 +1,6 @@
+dbt
+logs
+seatify_venv
+config.py
+__pycache__
+seatify.code-workspace
