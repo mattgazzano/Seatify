@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(1, '/home/mattgazzano/github/Seatify/')
+sys.path.insert(1, '/home/mattgazzano/github/seatify/')
 import boto3
 import pandas as pd
 import config

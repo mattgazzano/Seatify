@@ -6,7 +6,7 @@ import re
 import warnings
 import gspread
 import sys
-sys.path.insert(1, '/home/mattgazzano/github/Seatify/')
+sys.path.insert(1, '/home/mattgazzano/github/seatify/')
 import config
 warnings.filterwarnings("ignore")
 pd.set_option('display.max_columns', None)
