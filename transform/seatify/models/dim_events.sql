@@ -1,26 +1,26 @@
 {{config (materialized='table')}}
 
+{% set median_score_fields = ['event_score','event_popularity']%}
+
 WITH fsp AS (
 	SELECT
 	*
-	, (SELECT PERCENTILE_CONT(.5) WITHIN GROUP (ORDER BY event_score) FROM r_fact_seatgeek_performer_event_relationships) AS median_event_score
-	, (SELECT PERCENTILE_CONT(.5) WITHIN GROUP (ORDER BY event_popularity) FROM r_fact_seatgeek_performer_event_relationships) AS median_event_popularity
+	{% for field in median_score_fields %}
+	, (SELECT PERCENTILE_CONT(.5) WITHIN GROUP (ORDER BY {{field}}) FROM r_fact_seatgeek_performer_event_relationships) AS median_{{field}}
+	{% endfor %}
 	FROM r_fact_seatgeek_performer_event_relationships
 )
 
 , fsp_pct AS (
 	SELECT
 	*
+	{% for field in median_score_fields %}
 	, CASE
-		WHEN event_score != 0
-			THEN ((event_score - median_event_score) / ABS(median_event_score))
-		ELSE -1
-	  END AS pct_above_median_event_score
-	, CASE
-		WHEN event_popularity != 0
-			THEN ((event_popularity - median_event_popularity) / ABS(median_event_popularity))
-		ELSE -1
-	  END AS pct_above_median_event_popularity
+		WHEN {{field}} != 0
+			THEN ROUND((({{field}} - median_{{field}}) / ABS(median_{{field}}))::numeric,2)
+		ELSE -1.00
+	  END AS pct_above_median_{{field}}
+	{% endfor %}
 	FROM fsp
 )
 
@@ -44,4 +44,4 @@ event_id
 , pct_above_median_event_score
 , event_is_open
 , CURRENT_TIMESTAMP AS cycle_date
-FROM fsp_pct;
+FROM fsp_pct

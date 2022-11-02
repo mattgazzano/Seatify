@@ -26,4 +26,4 @@ album_id
 , (CURRENT_DATE - release_date_cleaned) AS days_since_release_date
 , total_tracks
 , CURRENT_TIMESTAMP AS cycle_date
-FROM dsa;
+FROM dsa
