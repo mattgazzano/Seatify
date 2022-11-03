@@ -19,4 +19,4 @@ event_id
 , event_event_promotion AS event_promotion
 , event_conditional
 , CURRENT_TIMESTAMP AS cycle_date
-FROM fact_seatgeek_performer_event_relationships
+FROM r_fact_seatgeek_performer_event_relationships

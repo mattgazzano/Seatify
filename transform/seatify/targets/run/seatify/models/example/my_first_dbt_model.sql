@@ -1,6 +1,8 @@
 
+  
+    
 
-  create  table "seatify_lake"."seatify_lake"."my_first_dbt_model__dbt_tmp"
+  create  table "seatify"."seatify"."my_first_dbt_model__dbt_tmp"
   as (
     /*
     Welcome to your first dbt model!
@@ -29,3 +31,4 @@ from source_data
 
 -- where id is not null
   );
+  
