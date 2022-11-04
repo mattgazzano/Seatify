@@ -1,7 +1,5 @@
 import streamlit as st
-from streamlit_lottie import st_lottie
 from PIL import Image
-import requests
 
 # Page Title
 st.set_page_config(page_title='Seatify', page_icon=':chart_with_upwards_trend:',layout='wide')
