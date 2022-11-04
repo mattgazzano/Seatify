@@ -12,6 +12,7 @@ st.set_page_config(page_title='Seatify', page_icon=':chart_with_upwards_trend:',
 # st.image(seatify_logo)
 
 st.title('Seatify')
+st.subheader('by [Matthew Gazzano](https://www.linkedin.com/in/matthewgazzano/)')
 st.write('''
 Both [Spotify](https://developer.spotify.com/documentation/web-api/) and [SeatGeek](https://platform.seatgeek.com/?ref=publicapis.dev) 
 offer open source API’s to access Artists and Event data respectively. What's unique with using both of these sources is that SeatGeek provides a 
