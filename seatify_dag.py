@@ -31,7 +31,7 @@ with DAG('seatify_dag'
 
     task_dbt_postgres_transform = BashOperator(
         task_id = 'task_dbt_postgres_transform'
-        , bash_command='/home/mattgazzano/github/seatify/transform dbt run'
+        , bash_command='cd /home/mattgazzano/github/seatify/transform/seatify && dbt run'
     )
 
 task_extract_spotify_data >> task_extract_seatgeek_data >> task_ingestion_to_s3 >> task_s3_to_postgres >> task_dbt_postgres_transform

@@ -10,4 +10,5 @@ country
 , continent
 , CAST(population AS float) AS population
 , percentage_of_world
+, CURRENT_TIMESTAMP AS cycle_date
 FROM r_dimension_country_codes
