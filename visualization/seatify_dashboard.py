@@ -6,19 +6,9 @@ import requests
 # Page Title
 st.set_page_config(page_title='Seatify', page_icon=':chart_with_upwards_trend:',layout='wide')
 
-
-def load_lottieurl(url):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json
-
-spotify_lottie = load_lottieurl('https://assets7.lottiefiles.com/packages/lf20_v2gjaej7.json')
-
 # Header Section
+st.image(Image.open('/home/mattgazzano/github/seatify/visualization/seatify_logo.jpg'), width=400)
 st.title('Seatify')
-st.image(Image.open('/home/mattgazzano/github/seatify/visualization/seatify_logo.jpg'), width=300)
-# st_lottie(spotify_lottie)
 st.subheader('by [Matthew Gazzano](https://www.linkedin.com/in/matthewgazzano/)')
 st.write('''
 Both [Spotify](https://developer.spotify.com/documentation/web-api/) and [SeatGeek](https://platform.seatgeek.com/?ref=publicapis.dev) 
@@ -32,4 +22,3 @@ transform their raw data into a usable star-schema inside of a Postgres database
     
 You can learn more about the architechture of the project on [Github](https://github.com/mattgazzano/seatify).
 ''')
-
