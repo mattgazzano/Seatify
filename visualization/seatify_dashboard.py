@@ -13,12 +13,12 @@ def load_lottieurl(url):
         return None
     return r.json
 
-spotify_lottie = load_lottieurl('https://assets1.lottiefiles.com/packages/lf20_ugylqlzx.json')
+spotify_lottie = load_lottieurl('https://assets7.lottiefiles.com/packages/lf20_v2gjaej7.json')
 
 # Header Section
 st.title('Seatify')
-st.image(Image.open('/home/mattgazzano/github/seatify/visualization/seatify_logo.jpg'))
-st_lottie(spotify_lottie)
+st.image(Image.open('/home/mattgazzano/github/seatify/visualization/seatify_logo.jpg'), width=300)
+# st_lottie(spotify_lottie)
 st.subheader('by [Matthew Gazzano](https://www.linkedin.com/in/matthewgazzano/)')
 st.write('''
 Both [Spotify](https://developer.spotify.com/documentation/web-api/) and [SeatGeek](https://platform.seatgeek.com/?ref=publicapis.dev) 
