@@ -1,1 +1,5 @@
 streamlit_lottie
+psycopg2
+pandas
+config
+sys
