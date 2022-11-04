@@ -9,7 +9,7 @@
 
 Both [Spotify](https://developer.spotify.com/documentation/web-api/) and [SeatGeek](https://platform.seatgeek.com/?ref=publicapis.dev) offer open source API’s to access Artists and Event data respectively. What's unique with using both of these sources is that SeatGeek provides a [Spotify Artist ID in the Performers object](https://platform.seatgeek.com/?ref=publicapis.dev#performers) which therefore allows you to connect data between the two platforms. In doing this, we can draw many conclusions on popular Artists, such as understanding the total number of listens they are receiving on their songs, and how many shows they are performing this year.
 
-The goal of this project is to connect to both of these sources via their API’s and transform raw data into a usable star-schema inside of a data warehouse. I will then use this data to draw conclusions and uncover patterns about trending artists.
+The goal of this project is to create a full stack analytics project that connects both of these sources via their API’s, transform their raw data into a usable star-schema inside of a Postgres database, and present it in a meaningful way.
 
 ## Pipeline Architecture
 
