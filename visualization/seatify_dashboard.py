@@ -7,23 +7,20 @@ st.set_page_config(page_title='Seatify', page_icon=':chart_with_upwards_trend:',
 
 
 # Header Section
-header = st.container()
-seatify_logo = Image.open('seatify_logo.png')
+# header = st.container()
+# seatify_logo = Image.open('seatify_logo.png')
 # st.image(seatify_logo)
 
+st.title('Seatify')
+st.write('''
+Both [Spotify](https://developer.spotify.com/documentation/web-api/) and [SeatGeek](https://platform.seatgeek.com/?ref=publicapis.dev) 
+offer open source API’s to access Artists and Event data respectively. What's unique with using both of these sources is that SeatGeek provides a 
+[Spotify Artist ID in the Performers object](https://platform.seatgeek.com/?ref=publicapis.dev#performers) which therefore allows you to connect 
+data between the two platforms. In doing this, we can draw many conclusions on popular Artists, such as understanding the total number of listens 
+they are receiving on their songs, and how many shows they are performing this year.
 
-with header:
-    st.title('Seatify')
-    st.write('''
-    Both [Spotify](https://developer.spotify.com/documentation/web-api/) and [SeatGeek](https://platform.seatgeek.com/?ref=publicapis.dev) 
-    offer open source API’s to access Artists and Event data respectively. What's unique with using both of these sources is that SeatGeek provides a 
-    [Spotify Artist ID in the Performers object](https://platform.seatgeek.com/?ref=publicapis.dev#performers) which therefore allows you to connect 
-    data between the two platforms. In doing this, we can draw many conclusions on popular Artists, such as understanding the total number of listens 
-    they are receiving on their songs, and how many shows they are performing this year.
-
-    The goal of this project is to create a full stack analytics project that connects both of these sources via their API’s, 
-    transform their raw data into a usable star-schema inside of a Postgres database, and present it in a meaningful way.
+The goal of this project is to create a full stack analytics project that connects both of these sources via their API’s, 
+transform their raw data into a usable star-schema inside of a Postgres database, and present it in a meaningful way.
     
-    You can read more about the architechture of the project on [Github](https://github.com/mattgazzano/seatify).
-    '''
-    )
+You can learn more about the architechture of the project on [Github](https://github.com/mattgazzano/seatify).
+''')
