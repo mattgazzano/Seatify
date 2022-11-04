@@ -13,7 +13,7 @@ def load_lottieurl(url):
         return None
     return r.json
 
-spotify_lottie = load_lottieurl('https://lottiefiles.com/59334-spotify-launch')
+spotify_lottie = load_lottieurl('https://assets1.lottiefiles.com/packages/lf20_ugylqlzx.json')
 
 # Header Section
 st.title('Seatify')
