@@ -18,7 +18,7 @@ spotify_lottie = load_lottieurl('https://assets1.lottiefiles.com/packages/lf20_u
 # Header Section
 st.title('Seatify')
 st.image(Image.open('/home/mattgazzano/github/seatify/visualization/seatify_logo.jpg'))
-st.lottie(spotify_lottie)
+st_lottie(spotify_lottie)
 st.subheader('by [Matthew Gazzano](https://www.linkedin.com/in/matthewgazzano/)')
 st.write('''
 Both [Spotify](https://developer.spotify.com/documentation/web-api/) and [SeatGeek](https://platform.seatgeek.com/?ref=publicapis.dev) 
