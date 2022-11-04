@@ -1,6 +1,6 @@
 import streamlit as st
 
-header = st.beta_container()
+header = st.container()
 
 with header:
     st.title('Seatify')
