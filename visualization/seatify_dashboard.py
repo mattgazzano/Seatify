@@ -10,7 +10,7 @@ st.set_page_config(page_title='Seatify', page_icon=':chart_with_upwards_trend:',
 
 
 st.title('Seatify')
-st.image(Image.open('\home\mattgazzano\github\seatify\visualization\seatify_logo.jpg'))
+st.image(Image.open('/home/mattgazzano/github/seatify/visualization/seatify_logo.jpg'))
 st.subheader('by [Matthew Gazzano](https://www.linkedin.com/in/matthewgazzano/)')
 st.write('''
 Both [Spotify](https://developer.spotify.com/documentation/web-api/) and [SeatGeek](https://platform.seatgeek.com/?ref=publicapis.dev) 
