@@ -1,17 +1,14 @@
 import streamlit as st
 from PIL import Image
 import psycopg2
-import sys
-sys.path.insert(1, '/home/mattgazzano/github/seatify/')
-import config
 import pandas as pd
 
 postgres_connection = psycopg2.connect(
     host='localhost'
     , port='5432'
     , database='seatify'
-    , user=config.postgres_username
-    , password=config.postgres_password
+    , user=st.secrets["POSTGRES_USERNAME"]
+    , password=st.secrets["POSTGRES_PASSWORD"]
     , options='-c search_path=dbo,seatify'
 )
 
