@@ -1,5 +1,5 @@
 logs
 seatify_venv
-config.py
+seatify_secrets.py
 __pycache__
 seatify.code-workspace

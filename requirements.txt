@@ -1,0 +1,4 @@
+gspread==5.5.0
+gspread-dataframe==3.3.0
+pandas==1.5.1
+Pillow==9.3.0

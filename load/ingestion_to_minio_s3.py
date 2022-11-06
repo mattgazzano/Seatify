@@ -1,13 +1,13 @@
 import sys
 sys.path.insert(1, '/home/mattgazzano/github/seatify/')
-import config
+import secrets
 from minio import Minio
 from datetime import date
 
 # Move CSV Files into Minio S3 Bucket
-minio = Minio(config.minio_port
-            , access_key=config.minio_access_key
-            , secret_key=config.minio_secret_key
+minio = Minio(secrets.minio_port
+            , access_key=secrets.minio_access_key
+            , secret_key=secrets.minio_secret_key
             , secure=False)
 
 if minio.bucket_exists('seatify'): None
@@ -27,4 +27,4 @@ seatify_tables = ['r_dimension_spotify_artists'
 for i in seatify_tables:
     minio.fput_object(bucket_name='seatify'
                     , object_name= f'{date.today()}/{i}.csv'
-                    , file_path= f'{config.extract_path+i}.csv')
+                    , file_path= f'{secrets.extract_path+i}.csv')

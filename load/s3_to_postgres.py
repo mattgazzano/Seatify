@@ -1,26 +1,17 @@
 import sys
-sys.path.insert(1, '/home/mattgazzano/github/seatify/')
+sys.path.append('/home/mattgazzano/github/seatify/')
+import seatify_secrets
 import boto3
 import pandas as pd
-import config
-import psycopg2
-import psycopg2.extras
 from datetime import date
 
+postgres_connection = seatify_secrets.postgres_connection
 
 minio_s3 = boto3.client('s3',
-                  endpoint_url=config.minio_endpoint_url,
-                  aws_access_key_id=config.minio_access_key,
-                  aws_secret_access_key=config.minio_secret_key,
+                  endpoint_url=seatify_secrets.minio_endpoint_url,
+                  aws_access_key_id=seatify_secrets.minio_access_key,
+                  aws_secret_access_key=seatify_secrets.minio_secret_key,
                   region_name='us-east-1'
-)
-
-postgres_connection = psycopg2.connect(
-    host='localhost'
-    , port='5432'
-    , database='seatify'
-    , user=config.postgres_username
-    , password=config.postgres_password
 )
 
 #Extract .csv files from the MinIO S3 bucket
@@ -56,11 +47,11 @@ for i in seatify_tables:
     postgres_cursor.execute(drop_if_exists)
 
     #Create table if it doesnt already exist
-    create_table = open(f'{config.postgres_create_insert_path}CREATE TABLE {i}.sql','r').read()
+    create_table = open(f'{seatify_secrets.postgres_create_insert_path}CREATE TABLE {i}.sql','r').read()
     postgres_cursor.execute(create_table)
 
     #Insert data into table
-    insert_query = open(f'{config.postgres_create_insert_path}INSERT INTO {i}.sql','r').read()
+    insert_query = open(f'{seatify_secrets.postgres_create_insert_path}INSERT INTO {i}.sql','r').read()
 
     #execute the insert statement on multiple records
     postgres_cursor.executemany(insert_query, s3_df.values)

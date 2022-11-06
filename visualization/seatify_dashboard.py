@@ -1,27 +1,13 @@
 import streamlit as st
 from PIL import Image
-import psycopg2
 import pandas as pd
-import sys
-sys.path.insert(1, '/home/mattgazzano/github/seatify/')
-import config
-
-postgres_connection = psycopg2.connect(
-    host='localhost'
-    , port='5432'
-    , database='seatify'
-    , user=config.postgres_username
-    , password=config.postgres_password
-    , options='-c search_path=dbo,seatify'
-)
-
-df_artists = pd.read_sql_query('select * from dim_artists',con=postgres_connection)
+import gspread
 
 # Page Title
 st.set_page_config(page_title='Seatify', page_icon=':chart_with_upwards_trend:',layout='wide')
 
 # Header Section
-st.image(Image.open('seatify_logo.jpg'), width=400)
+st.image(Image.open('/visualization/seatify_logo.jpg'), width=400)
 st.title('Seatify')
 st.subheader('by [Matthew Gazzano](https://www.linkedin.com/in/matthewgazzano/)')
 st.write('''
@@ -36,5 +22,9 @@ transforms their raw data into a usable star-schema inside of a Postgres databas
     
 You can learn more about the architechture of the project on [Github](https://github.com/mattgazzano/seatify).
 ''')
+
+gcloud_service_account = gspread.service_account()
+seatify_dashboard_postgres_tables = gcloud_service_account.open_by_key(st.secrets['seatify_dashboard_postgres_tables']).worksheet('dim_artists')
+df_artists = pd.json_normalize(seatify_dashboard_postgres_tables.get_all_records())
 
 st.table(df_artists.head(50))

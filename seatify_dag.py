@@ -33,5 +33,10 @@ with DAG('seatify_dag'
         task_id = 'task_dbt_postgres_transform'
         , bash_command='cd /home/mattgazzano/github/seatify/transform/seatify && dbt run'
     )
+    
+    task_postgres_to_gsheets = BashOperator(
+        task_id='task_postgres_to_gsheets'
+        , bash_command='python3 /home/mattgazzano/github/seatify/load/postgres_to_gsheets.py'
+    )
 
-task_extract_spotify_data >> task_extract_seatgeek_data >> task_ingestion_to_s3 >> task_s3_to_postgres >> task_dbt_postgres_transform
+task_extract_spotify_data >> task_extract_seatgeek_data >> task_ingestion_to_s3 >> task_s3_to_postgres >> task_dbt_postgres_transform >> task_postgres_to_gsheets

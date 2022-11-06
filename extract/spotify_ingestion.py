@@ -1,7 +1,7 @@
 # Import required packages
 import sys
 sys.path.insert(1, '/home/mattgazzano/github/seatify/')
-import config
+import seatify_secrets
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -13,8 +13,8 @@ import gspread
 gcloud_service_account = gspread.service_account()
 
 # Spotify API Authentication
-client_id = config.seatify_client_id
-client_secret = config.seatify_client_secret
+client_id = seatify_secrets.seatify_client_id
+client_secret = seatify_secrets.seatify_client_secret
 client_creds = f'{client_id}:{client_secret}'
 client_creds_b64 = base64.b64encode(client_creds.encode())
 
@@ -25,7 +25,7 @@ class SpotifyAPI(object):
     access_token_did_expire = True
     client_id = None
     client_secret = None
-    token_url = config.spotify_token_url
+    token_url = seatify_secrets.spotify_token_url
 
     def __init__(self,client_id,client_secret,*args,**kwargs):
         super().__init__(*args,**kwargs)
@@ -137,7 +137,7 @@ class SpotifyAPI(object):
 # Compile a list of Popular Playlists via Webscraping and a Google Sheets doc
 def webscrape_playlists():
     print('Start: Webscraping playlists')
-    url_html = requests.get(config.playlist_website).text
+    url_html = requests.get(seatify_secrets.playlist_website).text
     soup = BeautifulSoup(url_html,features='html.parser')
     h3 = soup.findAll('h3')
     web_scraped_playlist_ids = []
@@ -149,7 +149,7 @@ def webscrape_playlists():
         break
     
     #Google Sheets file
-    spotify_playlists_sheet = gcloud_service_account.open_by_key(config.playlists_google_sheet_key).worksheet('playlist_ids')
+    spotify_playlists_sheet = gcloud_service_account.open_by_key(seatify_secrets.playlists_google_sheet_key).worksheet('playlist_ids')
     google_sheets_playlist_ids = pd.json_normalize(spotify_playlists_sheet.get_all_records())['playlist_id'].values.tolist()
 
     playlists = web_scraped_playlist_ids + google_sheets_playlist_ids
@@ -209,8 +209,8 @@ def r_dimension_spotify_artists(spotify,artist_ids_50):
     r_fact_spotify_artist_genres.set_index('id', inplace=True)
     r_fact_spotify_artist_genres.dropna(axis=0, how='any', inplace=True)
     ## Output to a CSV
-    r_dimension_spotify_artists.to_csv(config.extract_path+'r_dimension_spotify_artists.csv')
-    r_fact_spotify_artist_genres.to_csv(config.extract_path+'r_fact_spotify_artist_genres.csv')
+    r_dimension_spotify_artists.to_csv(seatify_secrets.extract_path+'r_dimension_spotify_artists.csv')
+    r_fact_spotify_artist_genres.to_csv(seatify_secrets.extract_path+'r_fact_spotify_artist_genres.csv')
     print('End: dim_artists')
 
 # r_fact_TRACK_RELATIONSHIPS - Track Relationships - each song can have more than one artist & album
@@ -251,7 +251,7 @@ def r_fact_spotify_track_relationships(spotify,track_ids):
     # Change the Index
     r_fact_spotify_track_relationships.set_index('id', inplace=True)
     # Output to a CSV
-    r_fact_spotify_track_relationships.to_csv(config.extract_path+'r_fact_spotify_track_relationships.csv')
+    r_fact_spotify_track_relationships.to_csv(seatify_secrets.extract_path+'r_fact_spotify_track_relationships.csv')
     print('End: r_fact_track_relationships')
     return r_fact_spotify_track_relationships
 
@@ -276,7 +276,7 @@ def r_dimension_spotify_tracks(spotify,r_fact_spotify_track_relationships):
     ## Remove duplicates
     r_dimension_spotify_tracks = r_dimension_spotify_tracks.drop_duplicates()
     ## Output to a CSV
-    r_dimension_spotify_tracks.to_csv(config.extract_path+'r_dimension_spotify_tracks.csv')
+    r_dimension_spotify_tracks.to_csv(seatify_secrets.extract_path+'r_dimension_spotify_tracks.csv')
     print('End: dim_tracks')
 
 # DIM_ALBUMS & r_fact_ALBUM_MARKETS
@@ -310,14 +310,14 @@ def albums_and_markets(spotify,r_fact_spotify_track_relationships):
     df_r_fact_album_markets.rename(columns={0:'alpha_2_code'}, inplace=True)
 
     # Output to a CSV
-    df_dim_albums.to_csv(config.extract_path+'r_dimension_spotify_albums.csv')
-    df_r_fact_album_markets.to_csv(config.extract_path+'r_fact_spotify_album_markets.csv')
+    df_dim_albums.to_csv(seatify_secrets.extract_path+'r_dimension_spotify_albums.csv')
+    df_r_fact_album_markets.to_csv(seatify_secrets.extract_path+'r_fact_spotify_album_markets.csv')
     print('End: dim_albums')
 
 # DIM_COUNTRY_CODES
 def r_dimension_country_codes():
     print('Start: dim_country_codes')
-    df_dim_country_codes = pd.read_html(config.github_country_codes)[0][['Country'
+    df_dim_country_codes = pd.read_html(seatify_secrets.github_country_codes)[0][['Country'
                                                                         ,'Alpha-2 code'
                                                                         ,'Alpha-3 code'
                                                                         ,'Numeric code'
@@ -332,7 +332,7 @@ def r_dimension_country_codes():
                                         }
                                 , inplace=True)
 
-    spotify_playlists_sheet = gcloud_service_account.open_by_key(config.countries_sheet_key).worksheet('countries')
+    spotify_playlists_sheet = gcloud_service_account.open_by_key(secrets.countries_sheet_key).worksheet('countries')
     wiki_country_list = pd.json_normalize(spotify_playlists_sheet.get_all_records())
 
     df_dim_country_codes = df_dim_country_codes.merge(wiki_country_list
@@ -342,7 +342,7 @@ def r_dimension_country_codes():
 
     df_dim_country_codes.set_index('country', inplace=True)
 
-    df_dim_country_codes.to_csv(config.extract_path+'r_dimension_country_codes.csv')
+    df_dim_country_codes.to_csv(seatify_secrets.extract_path+'r_dimension_country_codes.csv')
     print('End: dim_country_codes')
 
 

@@ -2,17 +2,16 @@ import pandas as pd
 import requests
 import json
 from requests.adapters import HTTPAdapter
-import re
 import warnings
 import gspread
 import sys
 sys.path.insert(1, '/home/mattgazzano/github/seatify/')
-import config
+import seatify_secrets
 warnings.filterwarnings("ignore")
 pd.set_option('display.max_columns', None)
 
-seatgeek_client_id = config.seatgeek_client_id
-seatgeek_client_secret = config.seatgeek_client_secret
+seatgeek_client_id = seatify_secrets.seatgeek_client_id
+seatgeek_client_secret = seatify_secrets.seatgeek_client_secret
 
 class seatgeek_api(object):
 
@@ -86,7 +85,7 @@ def performer_json_normalize(performer_json):
     except: pass
 
 gcloud_service_account = gspread.service_account()
-spotify_playlists_sheet = gcloud_service_account.open_by_key(config.seatgeek_artist_ids_sheet_key).worksheet('performers')
+spotify_playlists_sheet = gcloud_service_account.open_by_key(secrets.seatgeek_artist_ids_sheet_key).worksheet('performers')
 gs_seatgeek_performers = pd.json_normalize(spotify_playlists_sheet.get_all_records())['seatgeek_performer_id'].values.tolist()
 
 
@@ -111,7 +110,7 @@ def get_bulk_performers_by_id(seatgeek,performer_ids_bulk):
     r_dimension_seatgeek_performers.rename(columns={'id':'spotify_artist_id'
                                             ,'url': 'spotify_artists_url'}
                                         , inplace=True)
-    r_dimension_seatgeek_performers.to_csv(config.extract_path+'r_dimension_seatgeek_performers.csv')
+    r_dimension_seatgeek_performers.to_csv(secrets.extract_path+'r_dimension_seatgeek_performers.csv')
     return r_dimension_seatgeek_performers
 
 def event_json_normalize(event_json):
@@ -197,7 +196,7 @@ def get_bulk_events_by_performer_id(seatgeek,performer_ids_bulk):
     r_fact_seatgeek_performer_event_relationships.set_index('events_events_id', inplace=True)
     r_fact_seatgeek_performer_event_relationships.drop(['taxonomies','genres'],axis=1,inplace=True)
     r_fact_seatgeek_performer_event_relationships.drop_duplicates(inplace=True)
-    r_fact_seatgeek_performer_event_relationships.to_csv(config.extract_path+'r_fact_seatgeek_performer_event_relationships.csv')
+    r_fact_seatgeek_performer_event_relationships.to_csv(secrets.extract_path+'r_fact_seatgeek_performer_event_relationships.csv')
     return r_fact_seatgeek_performer_event_relationships
 
 if __name__ == '__main__':
