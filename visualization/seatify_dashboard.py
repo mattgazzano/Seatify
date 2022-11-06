@@ -42,8 +42,4 @@ transforms their raw data into a usable star-schema inside of a Postgres databas
 You can learn more about the architechture of the project on [Github](https://github.com/mattgazzano/seatify).
 ''')
 
-gcloud_service_account = gspread.service_account()
-seatify_dashboard_postgres_tables = gcloud_service_account.open_by_key(st.secrets['seatify_dashboard_postgres_tables']).worksheet('dim_artists')
-df_artists = pd.json_normalize(seatify_dashboard_postgres_tables.get_all_records())
-
 st.table(rows)
