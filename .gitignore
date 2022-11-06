@@ -3,3 +3,4 @@ seatify_venv
 seatify_secrets.py
 __pycache__
 seatify.code-workspace
+.streamlit
