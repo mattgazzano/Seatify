@@ -3,3 +3,9 @@ gspread-dataframe==3.3.0
 pandas==1.5.1
 Pillow==9.3.0
 gsheetsdb==0.1.13.1
+google-api-core==2.10.2
+google-api-python-client==1.6.7
+google-auth==2.14.0
+google-auth-httplib2==0.1.0
+google-auth-oauthlib==0.7.1
+googleapis-common-protos==1.56.4
