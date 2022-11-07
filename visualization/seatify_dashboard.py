@@ -3,18 +3,6 @@ from PIL import Image
 import pandas as pd
 from gsheetsdb import connect
 
-
-conn = connect()
-
-@st.cache(ttl=600)
-def run_query(query):
-    rows = conn.execute(query, headers=1)
-    rows = rows.fetchall()
-    return rows
-
-sheet_url = st.secrets["seatify_dashboard_postgres_tables"]
-rows = run_query(f'SELECT * FROM "{sheet_url}" LIMIT 50')
-
 # Page Title
 st.set_page_config(page_title='Seatify', page_icon=':chart_with_upwards_trend:',layout='wide')
 
@@ -34,5 +22,21 @@ transforms their raw data into a usable star-schema inside of a Postgres databas
     
 You can learn more about the architechture of the project on [Github](https://github.com/mattgazzano/seatify).
 ''')
+
+
+conn = connect()
+
+@st.cache(ttl=600)
+def run_query(query):
+    rows = conn.execute(query, headers=1)
+    rows = rows.fetchall()
+    return rows
+
+sheet_url = st.secrets["seatify_dashboard_postgres_tables"]
+rows = run_query(f'SELECT * FROM "{sheet_url}" LIMIT 50')
+
+
+
+
 
 st.table(rows)
