@@ -1,17 +1,10 @@
 import streamlit as st
 from PIL import Image
 import pandas as pd
-from google.oauth2 import service_account
 from gsheetsdb import connect
 
-# Create a connection object.
-credentials = service_account.Credentials.from_service_account_info(
-    st.secrets["gcp_service_account"],
-    scopes=[
-        "https://www.googleapis.com/auth/spreadsheets",
-    ],
-)
-conn = connect(credentials=credentials)
+
+conn = connect()
 
 @st.cache(ttl=600)
 def run_query(query):
