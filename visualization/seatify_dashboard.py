@@ -7,7 +7,7 @@ from gsheetsdb import connect
 st.set_page_config(page_title='Seatify', page_icon=':chart_with_upwards_trend:',layout='wide')
 
 # Header Section
-st.image(Image.open('/visualization/assets/seatify_logo.jpg'), width=400)
+st.image(Image.open('visualization/assets/seatify_logo.jpg'), width=400)
 st.title('Seatify')
 st.subheader('by [Matthew Gazzano](https://www.linkedin.com/in/matthewgazzano/)')
 st.write('''
