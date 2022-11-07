@@ -11,6 +11,10 @@ Both [Spotify](https://developer.spotify.com/documentation/web-api/) and [SeatGe
 
 The goal of this project is to create a full stack analytics project that connects both of these sources via their API’s, transform their raw data into a usable star-schema inside of a Postgres database, and present it in a meaningful way.
 
+## Dashboard
+
+[Seatify Dashboard](https://mattgazzano-seatify.streamlit.app/)
+
 ## Pipeline Architecture
 
 <p align='center'>
